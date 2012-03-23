@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323095943) do
+ActiveRecord::Schema.define(:version => 20120323102542) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -278,6 +278,14 @@ ActiveRecord::Schema.define(:version => 20120323095943) do
     t.string   "page_layout"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.boolean  "available"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
