@@ -1,3 +1,7 @@
 = AlchemyNodes
 
-This project rocks and uses MIT-LICENSE.
+appends a tree of nodes to any model. A node can has a content-page for each language.
+
+= TODO
+
+figure out an elegant way to add resources-views to view-path specific for nodeables

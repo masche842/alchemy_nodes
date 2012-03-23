@@ -31,6 +31,11 @@ ActiveRecord::Schema.define(:version => 20120323102542) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "alchemy_content_frames", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "alchemy_contents", :force => true do |t|
     t.string   "name"
     t.string   "essence_type"
@@ -194,6 +199,21 @@ ActiveRecord::Schema.define(:version => 20120323102542) do
 
   add_index "alchemy_languages", ["language_code", "country_code"], :name => "index_alchemy_languages_on_language_code_and_country_code"
   add_index "alchemy_languages", ["language_code"], :name => "index_alchemy_languages_on_language_code"
+
+  create_table "alchemy_nodes", :force => true do |t|
+    t.string   "name"
+    t.string   "urlname"
+    t.string   "page_layout"
+    t.boolean  "layoutpage"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.integer  "nodeable_id"
+    t.string   "nodeable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "alchemy_pages", :force => true do |t|
     t.string   "name"

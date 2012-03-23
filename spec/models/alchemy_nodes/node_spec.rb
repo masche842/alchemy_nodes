@@ -1,5 +1,7 @@
 require 'spec_helper'
 
-describe Node do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe AlchemyNodes::Node do
+  it "should act as a set" do
+    AlchemyNodes::Node.should respond_to 'rebuild!'
+  end
 end
