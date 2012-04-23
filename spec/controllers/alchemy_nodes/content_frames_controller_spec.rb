@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe ContentFramesController do
+describe "AlchemyNodes::ContentFramesController" do
 
 end

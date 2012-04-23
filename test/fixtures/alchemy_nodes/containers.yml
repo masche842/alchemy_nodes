@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  urlname: MyString
+  title: MyString
+  meta_keywords: MyString
+  meta_description: MyString
+  robot_index: false
+  robot_follow: false
+  sitemap: false
+  node: 
+  language: 
+  public: false
+  locked: false
+  locked_by: 1
+  restricted: false
+
+two:
+  urlname: MyString
+  title: MyString
+  meta_keywords: MyString
+  meta_description: MyString
+  robot_index: false
+  robot_follow: false
+  sitemap: false
+  node: 
+  language: 
+  public: false
+  locked: false
+  locked_by: 1
+  restricted: false

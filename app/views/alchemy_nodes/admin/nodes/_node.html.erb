@@ -1,0 +1,8 @@
+<% if node %>
+<li>
+  <%= link_to 'Edit Content', alchemy_nodes.edit_admin_node_path(node), :title => "edit content" %>
+  <ul>
+    <%= render :partial => 'alchemy_nodes/admin/nodes/node', :collection => node.children %>
+  </ul>
+</li>
+<% end %>

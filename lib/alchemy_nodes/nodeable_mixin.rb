@@ -7,7 +7,9 @@ module AlchemyNodes
     end
 
     def create_root_node
-      self.nodes.build
+      node = self.nodes.build
+      #TODO stub for now, replace with something better...
+      node.page_layout = 'standard'
       self.save
     end
 

@@ -16,6 +16,7 @@ describe "As an administrator I want to edit a contentable item" do
     click_on('Login')
 
     visit '/admin/products'
+save_and_open_page
     click_on 'edit content'
     fill_in 'Headline', :with => 'My Headline'
     click_on 'save'
@@ -39,8 +40,9 @@ feature "As a guest I want to read a contentable item's content" do
   end
 
   scenario "visit contentable and show content" do
-    visit '/product/1'
-    save_and_open_page
+    Product.create(:name => 'my product')
+
+    visit '/products/1'
     page.should have_content 'My Headline'
     page.should have_content 'My Text'
   end

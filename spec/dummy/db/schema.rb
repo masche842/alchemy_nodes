@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323102542) do
+ActiveRecord::Schema.define(:version => 20120324214040) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -27,13 +27,9 @@ ActiveRecord::Schema.define(:version => 20120323102542) do
   create_table "alchemy_cells", :force => true do |t|
     t.integer  "page_id"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "alchemy_content_frames", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "container_id"
   end
 
   create_table "alchemy_contents", :force => true do |t|
@@ -54,14 +50,15 @@ ActiveRecord::Schema.define(:version => 20120323102542) do
     t.string   "name"
     t.integer  "position"
     t.integer  "page_id"
-    t.boolean  "public",     :default => true
-    t.boolean  "folded",     :default => false
-    t.boolean  "unique",     :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "public",       :default => true
+    t.boolean  "folded",       :default => false
+    t.boolean  "unique",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "cell_id"
+    t.integer  "container_id"
   end
 
   add_index "alchemy_elements", ["page_id", "position"], :name => "index_elements_on_page_id_and_position"
@@ -211,9 +208,37 @@ ActiveRecord::Schema.define(:version => 20120323102542) do
     t.integer  "depth"
     t.integer  "nodeable_id"
     t.string   "nodeable_type"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "alchemy_nodes", ["parent_id"], :name => "index_alchemy_nodes_on_parent_id"
+
+  create_table "alchemy_nodes_containers", :force => true do |t|
+    t.string   "name"
+    t.string   "urlname"
+    t.string   "title"
+    t.string   "meta_keywords"
+    t.string   "meta_description"
+    t.boolean  "robot_index"
+    t.boolean  "robot_follow"
+    t.boolean  "sitemap"
+    t.integer  "node_id"
+    t.integer  "language_id"
+    t.boolean  "public"
+    t.boolean  "locked"
+    t.integer  "locked_by"
+    t.boolean  "restricted"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "alchemy_nodes_containers", ["language_id"], :name => "index_alchemy_nodes_containers_on_language_id"
+  add_index "alchemy_nodes_containers", ["node_id"], :name => "index_alchemy_nodes_containers_on_node_id"
 
   create_table "alchemy_pages", :force => true do |t|
     t.string   "name"
