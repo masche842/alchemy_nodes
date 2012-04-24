@@ -26,7 +26,7 @@ module AlchemyNodes
 
       def show
         load_node
-        @container = (@node.containers.find_by_language_id(session[:language_id]) or AlchemyNodes::Container.new)
+        @container = (@node.containers.find_by_language_id(session[:language_id]) or AlchemyNodes::Container.new(:language_id => session[:language_id]))
         @page = @container
         @preview_mode = true
         # Setting the locale to pages language. so the page content has its correct translation
@@ -43,7 +43,7 @@ module AlchemyNodes
       # Edit the content of the page and all its elements and contents.
       def edit
         load_node
-        @container = (@node.containers.find_by_language_id(session[:language_id]) or @node.containers.create)
+        @container = (@node.containers.find_by_language_id(session[:language_id]) or @node.containers.create(:language_id => session[:language_id]))
         @page = @container
         @languages = Alchemy::Language.all
         @locked_content_frames = []

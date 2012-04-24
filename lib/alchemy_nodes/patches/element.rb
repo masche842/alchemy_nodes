@@ -15,7 +15,7 @@ Alchemy::Element.class_eval do
 
   belongs_to :container, :class_name => AlchemyNodes::Container
 
-  has_and_belongs_to_many :to_be_sweeped_elements_for_containers, :class_name => 'AlchemyNodes::Container', :uniq => true, :join_table => 'alchemy_elements_containers'
+  has_and_belongs_to_many :to_be_sweeped_elements_for_containers, :class_name => 'AlchemyNodes::Container', :uniq => true, :join_table => 'alchemy_containers_alchemy_elements'
 
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil, :container_id => nil).order('updated_at DESC')

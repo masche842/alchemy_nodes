@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(:version => 20120324214040) do
     t.integer  "container_id"
   end
 
+  create_table "alchemy_containers_alchemy_elements", :id => false, :force => true do |t|
+    t.integer "element_id"
+    t.integer "container_id"
+  end
+
   create_table "alchemy_contents", :force => true do |t|
     t.string   "name"
     t.string   "essence_type"

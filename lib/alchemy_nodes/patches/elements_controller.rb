@@ -3,8 +3,8 @@ module AlchemyNodes
     module ElementsController
       protected
       def load_container_to_page
-        if params[:container_type].present? and params[:container_id].present?
-          container_type = params[:container_type]
+        if params[:container_id].present?
+          container_type = 'AlchemyNodes::Container'
           container_id = params[:container_id]
         elsif params[:element].present? and params[:element][:container_id].present?
           container_type = 'AlchemyNodes::Container'
