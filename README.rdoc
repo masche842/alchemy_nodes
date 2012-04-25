@@ -1,6 +1,7 @@
 = AlchemyNodes
 
-appends a tree of nodes to any model. A node can has a content-page for each language.
+appends a tree of nodes to any model you like. A node in turn can have a container for each language.
+The container contains your content in Elements/Cells/Essences.
 
 = TODO
 
