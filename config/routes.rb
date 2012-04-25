@@ -6,8 +6,6 @@ AlchemyNodes::Engine.routes.draw do
   namespace :admin do
 
     resources :nodes do
-
-      resources :elements
       collection do
         post :order
         post :flush
@@ -23,9 +21,9 @@ AlchemyNodes::Engine.routes.draw do
         get :configure
         get :preview
       end
-
-
+      resources :elements
     end
+
   end
 
 end

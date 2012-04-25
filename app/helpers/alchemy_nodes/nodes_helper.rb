@@ -20,6 +20,10 @@ module AlchemyNodes
       alchemy_nodes.admin_nodes_path
     end
 
+    def nodeables_path(node)
+      main_app.url_for([:admin, node.root.nodeable.class])
+    end
+
     # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
     def render_node_layout(options={})
       render :partial => "alchemy/page_layouts/#{@node.page_layout.downcase}"

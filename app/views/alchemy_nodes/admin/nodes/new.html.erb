@@ -1,0 +1,50 @@
+<%- if @clipboard_items.blank? -%>
+<%= render :partial => 'new_node_form' %>
+<%- else -%>
+<div id="overlay_tabs">
+  <ul>
+    <li><a href="#create_node_tab"><%= t('New node') %></a></li>
+    <li><a href="#paste_node_tab"><%= t('Paste from clipboard') %></a></li>
+  </ul>
+  <div id="errors" style="display:none"></div>
+  <div id="create_node_tab">
+    <%= render :partial => 'new_node_form' %>
+  </div>
+  <div id="paste_node_tab">
+    <%= form_for([:admin, @node], :remote => true, :html => {:id => 'paste_node_form'}) do |f| %>
+      <%= f.hidden_field(:parent_id) %>
+      <table id="new_node_form">
+        <tr>
+          <td class="label">
+            <label for="paste_from_clipboard"><%= t("Page") %></label>
+          </td>
+          <td class="select">
+            <%= clipboard_select_tag(@clipboard_items) %>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">
+            <%= f.label :name %>
+          </td>
+          <td class="input">
+            <%= f.text_field(:name, :size => 15, :class => "thin_border") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">&nbsp;</td>
+          <td class="submit">
+            <%= f.button t("paste"), :class => 'button', :name => nil %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+
+  jQuery(function() {
+    jQuery("#overlay_tabs").tabs();
+  });
+
+</script>
+<%- end -%>

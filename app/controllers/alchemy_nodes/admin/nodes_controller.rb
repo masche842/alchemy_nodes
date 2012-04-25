@@ -35,7 +35,7 @@ module AlchemyNodes
       end
 
       def new
-        instance_variable_set("@#{AlchemyNodes::Node_name}", AlchemyNodes::Node.new)
+        @node = AlchemyNodes::Node.new(:parent_id => params[:parent_id])
         @page_layouts = Alchemy::PageLayout.get_layouts_for_select(session[:language_id], false)
         render :layout => false
       end
@@ -48,6 +48,23 @@ module AlchemyNodes
         @languages = Alchemy::Language.all
         @locked_content_frames = []
         @layoutpage = false
+      end
+
+      def create
+        parent = Node.find_by_id(params[:node][:parent_id]) or raise "Node.root"
+        if params[:paste_from_clipboard].blank?
+          node = Node.create(params[:node])
+        else
+          source_node = Node.find(params[:paste_from_clipboard])
+          node = Node.copy(source_node, {
+            :name => params[:node][:name].blank? ? source_node.name + ' (' + t('Copy') + ')' : params[:node][:name],
+            :urlname => '',
+            :title => '',
+            :parent_id => params[:node][:parent_id]
+          })
+          source_node.copy_children_to(node) unless source_node.children.blank?
+        end
+        render_errors_or_redirect(node, nodeables_path(node), t("Page created", :name => node.name), '#alchemyOverlay button.button')
       end
 
       def resource_locked_by_other_user
@@ -89,13 +106,13 @@ module AlchemyNodes
       # Leaves the page editing mode and unlocks the page for other users
       def unlock
         load_node
-        @node.unlock
+        @node.current_container.unlock
         flash[:notice] = t("unlocked_page", :name => @node.name)
         @contentables_locked_by_user = AlchemyNodes::Node.all_locked_by(current_user)
         respond_to do |format|
           format.js
           format.html {
-            redirect_to params[:redirect_to].blank? ? resource_url_scope.send("admin_#{resource_handler.resources_name}_path") : params[:redirect_to]
+            redirect_to params[:redirect_to].blank? ? nodeables_path(@node) : params[:redirect_to]
           }
         end
       end
@@ -125,6 +142,10 @@ module AlchemyNodes
       end
 
       private
+
+      def nodeables_path(node)
+        main_app.url_for([:admin, node.root.nodeable.class])
+      end
 
       def current_container
 

@@ -14,7 +14,7 @@
 
   <div id="toolbar_buttons">
     <div class="button_with_label">
-      <%= form_tag alchemy_nodes.node_path(@node, :action => :unlock, :redirect_to => alchemy_nodes.nodes_path), :id => 'unlock_page_form' do %>
+      <%= form_tag alchemy_nodes.unlock_admin_node_path(@node, :redirect_to => nodeables_path(@node)), :id => 'unlock_page_form' do %>
         <button class="icon_button" title="<%= t('explain_unlocking') %>">
           <%= render_icon('close') %>
         </button>
@@ -23,7 +23,7 @@
     </div>
 
       <div class="button_with_label">
-        <%= form_tag alchemy_nodes.nodes_path(@node, :action => :visit), :id => 'visit_page_form' do %>
+        <%= form_tag alchemy_nodes.visit_admin_node_path(@node), :id => 'visit_page_form' do %>
           <button class="icon_button" title="<%= t('Visit page') %>">
             <%= render_icon('visit_page') %>
           </button>
@@ -34,7 +34,7 @@
 
     <%- if configuration(:cache_pages) -%>
       <div class="button_with_label">
-        <%= form_tag alchemy_nodes.nodes_path(@node, :action => :publish), :id => 'publish_page_form' do -%>
+        <%= form_tag alchemy_nodes.publish_admin_node_path(@node), :id => 'publish_page_form' do -%>
           <button class="icon_button" title="<%= t('explain_publishing') %>">
             <%= render_icon('publish') %>
           </button>

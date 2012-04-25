@@ -1,6 +1,63 @@
 <% if node %>
 <li>
-  <%= link_to 'Edit Content', alchemy_nodes.edit_admin_node_path(node), :title => "edit content" %>
+  <div class="sitemap_right_tools">
+        <%- unless @sorting -%>
+        <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
+        <%= link_to_overlay_window(
+          render_icon('configure_page'),
+          alchemy_nodes.configure_admin_node_path(node),
+          {
+            :title => t('edit_page_properties'),
+            :size => node.redirects_to_external? ? '410x270' : '410x620'
+          },
+          :class => '',
+          :title => t('edit_page_properties')
+        ) -%>
+        <%- end -%>
+        <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
+        <span class="sitemap_sitetools">
+          <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
+          <%= link_to(
+            render_icon("copy_page"),
+            alchemy.insert_admin_clipboard_path(
+              :remarkable_type => node.class.name.demodulize.underscore,
+              :remarkable_id => node.id
+            ),
+            :remote => true,
+            :method => :post,
+            :class => "",
+            :title => t("copy_page")
+          ) %>
+          <%- end -%>
+          <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
+          <%= link_to_confirmation_window(
+            render_icon('delete_page'),
+            t("confirm_to_delete_page"),
+            alchemy_nodes.url_for(node),
+            {
+              :class => "",
+              :title => t("delete_page")
+            }
+          ) -%>
+          <%- end -%>
+          <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
+          <%= link_to_overlay_window(
+            render_icon('add_page'),
+            alchemy_nodes.new_admin_node_path(:parent_id => node.id),
+            {
+              :title => t('create_page'),
+              :size => '340x150',
+              :overflow => true
+            },
+            :class => '',
+            :title => t('create_page')
+          ) -%>
+          <%- end -%>
+        </span>
+        <%- end -%>
+        <%- end -%>
+      </div>
+  <%= link_to node.name, alchemy_nodes.edit_admin_node_path(node), :title => "edit content" %>
   <ul>
     <%= render :partial => 'alchemy_nodes/admin/nodes/node', :collection => node.children %>
   </ul>
